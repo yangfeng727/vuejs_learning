@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue.sync</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+        }
+        .explain{
+            margin:10px 0;
+            font-size:16px;
+            color:red;
+        }
+    </style>
+<body>
+<div id="app">
+    <p class="explain">以 update:myPropName 的模式触发事件实现双向绑定</p>
+    <span>{{message222 | filtervalue('abc',message2)}}</span><br/>
+    <test-test :message.sync='message222'></test-test>
+</div>
+<script>
+
+
+    // vue双向绑定
+    Vue.component('test-test',{
+        props:{
+            message:String
+        },
+        methods:{
+            input:function(e){
+                this.$emit('update:message',e.target.value)
+            }
+        },
+        template:`<input :value='message' @input='input'/>`
+    })
+
+    new Vue({
+        el: '#app',
+        data: {
+            message222: 'Runoasdasddob',
+            message2: '菜鸟教程\r\nhttp://www.runoob.com'
+        },
+        computed:{
+            reset:function(){
+                return this.message.replace(/\s*/g,'')
+            }
+        },
+        filters:{
+            filtervalue:function (value,arg1,arg2) { // 过滤器传参
+                return value+' - 过滤器参数 : '+arg1+' : '+arg2
+            }
+        }
+    })
+</script>
+</body>
+</html>

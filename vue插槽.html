@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue 插槽</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <style>
+
+        #app{
+            padding:50px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .explain {
+            margin: 10px 0;
+            font-size: 30px;
+            color: red;
+        }
+    </style>
+<body>
+<div id="app">
+    <p class="explain">vue 插槽内容</p>
+    <test-test>
+        <p>。。。。。。。剩余内容start。。。。。。</p>
+        <template v-slot:header>
+            <h1>Here might be a page title</h1>
+        </template>
+        <p> 。。。。。。。剩余内容end。。。。。。</p>
+    </test-test>
+
+
+    <hr style="margin:50px 0"/>
+
+    <p class="explain">vue 插槽作用域</p>
+    <current-user :books="books">
+        <template v-slot:default="slotProps"> <!--//2.现在在父级作用域中，我们可以给 v-slot 带一个值来定义我们提供的插槽 prop 的名字-->
+            <!--子级传过来的数据在插槽 prop里面，这个slotProps可以自己定义名称-->
+            {{ slotProps.returnBooks }}
+        </template>
+    </current-user>
+
+</div>
+<script>
+
+
+    //具名插槽
+    Vue.component('test-test', {
+        // props:{
+        //     message:String
+        // },
+        // methods:{
+        //     input:function(e){
+        //         this.$emit('update:message',e.target.value)
+        //     }
+        // },
+        template: `
+                <div>
+                  <h1>啦啦啦啦啦</h1>
+                  <slot></slot>
+                  <slot name="header"></slot>
+                </div>`
+    })
+
+
+    // 作用域插槽
+    Vue.component('current-user', {
+        props:['books'],
+        computed:{
+            cnbooks:function(){
+                return '这里是子组件组装后的'+this.books+'科目！！！返回到了父亲组件，正是作用域插槽的含义'
+            }
+        },
+        template: `
+           <span>
+              <slot name="default" :returnBooks="cnbooks">    <!-- 1.绑定在 <slot> 元素上的特性被称为插槽 prop--->
+                {{ books }}  <!--当父组件没有时候显示--->
+              </slot>
+            </span>
+            `
+    })
+
+    new Vue({
+        el: '#app',
+        data: {
+            message222: 'Runoasdasddob',
+
+
+            books:'语文'
+        },
+        computed: {
+            reset: function () {
+                return this.message.replace(/\s*/g, '')
+            }
+        }
+    })
+</script>
+</body>
+</html>
