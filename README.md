@@ -34,3 +34,5 @@ const router = new Router({
 	]
 })
 ```
+## 2.关于vue methods
+在vue 方法中，若有a,b 两个data里面的变量，当其中任意一个发生变化时都会重新执行当前方法！！！！！！！
