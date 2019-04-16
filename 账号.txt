@@ -6,6 +6,10 @@ svn   yangfeng   yangfeng0305
 
 钉钉：15902316436    yangfeng0305
 
+npm set registry http://test-api.tpddns.cn:4873                // 切换私服镜像地址
+npm adduser --registry http://test-api.tpddns.cn:4873    // 新增当前地址的账户
+
+
 
 商户平台 yangfeng@bluesdk.com  test123
 
