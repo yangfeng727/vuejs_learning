@@ -12,8 +12,9 @@
 
       <!--mutations和actions-->
       <el-input v-model="value" style="width:200px"/>
-      <el-button @click="minusPriceFromModuleA(value)">改变store值-同步-【mutations方式】</el-button>
-      <el-button @click="minusPriceAsyncFromModuleA(value)">改变store值-异步-【actions方式】</el-button>
+      <el-button type="primary" @click="minusPriceFromModuleA(value)">改变store值-同步-【mutations方式】</el-button>
+      <el-button type="primary" @click="minusPriceAsyncFromModuleA(value)">改变store值-异步-【actions方式】</el-button>
+      <el-button type="primary" @click="showMsg(value)">返回promise【actions方式】</el-button>
     </div>
   </div>
 </template>
@@ -35,7 +36,12 @@ export default {
     }), // store里面的同步方法
     ...mapActions('modulesA', {
       minusPriceAsyncFromModuleA: 'minusPriceAsync'
-    }) // store里面的异步方法
+    }), // store里面的异步方法
+    showMsg (val) {
+      this.minusPriceAsyncFromModuleA(val).then(() => {
+        alert('这是action返回的promise')
+      })
+    }
   },
   computed: {
     ...mapState('modulesA', {
@@ -55,10 +61,14 @@ export default {
 <style scoped lang="less">
   .testStore-wrap {
     text-align: left;
-    padding: 0 50px;
+    padding: 20px 50px;
 
     .col-color {
       background: #35b3ee;
+    }
+
+    p {
+      padding-bottom: 5px;
     }
   }
 </style>

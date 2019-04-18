@@ -4,7 +4,8 @@ export default {
     msg: 100
   },
   getters: {
-    aMget (state) {
+    aMget (state, getters, rootState) {
+      console.log(rootState.message, 111111111)
       return state.msg + '元'
     }
   },
@@ -14,7 +15,7 @@ export default {
     }
   },
   actions: { // 添加actions
-    minusPriceAsync ({commit}, payload) {
+    minusPriceAsync ({state, commit, rootState}, payload) {
       // 使用promise可以使用then方法处理事件
       // store.dispatch('actionA').then(() => {
       //   // ...

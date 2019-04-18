@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    message: '这是根state的变量',
     products: [
       {name: '鼠标', price: 20},
       {name: '键盘', price: 40},
@@ -31,7 +32,7 @@ export default new Vuex.Store({
     }
   },
   actions: { // 添加actions
-    minusPriceAsync ({commit}, payload) {
+    minusPriceAsync ({state, commit}, payload) {
       // 使用promise可以使用then方法处理事件
       // store.dispatch('actionA').then(() => {
       //   // ...
