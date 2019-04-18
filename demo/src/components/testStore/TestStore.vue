@@ -1,6 +1,6 @@
 <template>
   <div class="test">
-    <h1>{{msg}}</h1>
+    <h1 class="title">{{msg}}</h1>
     <div class="testStore-wrap">
       <div class="box-one">
         <p class="p-title">原始列表</p>
@@ -20,6 +20,7 @@
       <el-input v-model="valPrice" style="width:200px"/>
       <el-button @click="minusPrice(valPrice)">改变store值-同步-【mutations方式】</el-button>
       <el-button @click="minusPriceAsync(valPrice)">改变store值-异步-【actions方式】</el-button>
+      <div class="clear"></div>
     </div>
   </div>
 </template>
@@ -40,6 +41,9 @@ export default {
     ...mapActions(['minusPriceAsync']) // store里面的异步方法
   },
   computed: {
+    // ...mapState({
+    //   productsA: 'products' // 将store里面的 products映射为productsA
+    // }), // store里面的state
     ...mapState(['products']), // store里面的state
     ...mapGetters(['saleProducts']) // store里面的getter 类似于computed
   },
@@ -49,13 +53,10 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
   ul {
     overflow: hidden;
     float: left;
-    padding: 0;
-    margin: 0;
   }
 
   li, ul {

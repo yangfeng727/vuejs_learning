@@ -7,6 +7,7 @@ import router from './router'
 // import { Cascader } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import ElementUI from 'element-ui'
+import './assets/common.less'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -16,6 +17,6 @@ new Vue({
   el: '#app',
   router,
   store, // 使用store
-  components: { App },
+  components: {App},
   template: '<App/>'
 })

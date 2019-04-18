@@ -4,7 +4,7 @@
     <p>
       <router-link :to="{name:'HelloWorld'}">HelloWorld</router-link>
       <router-link :to="{name:'page'}">page</router-link>
-      <router-link :to="{name:'testStore'}">testStore</router-link>
+      <router-link :to="{name:'storeIndex'}">storeIndex</router-link>
     </p>
     <router-view/>
   </div>
