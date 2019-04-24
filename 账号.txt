@@ -20,7 +20,7 @@ npm adduser --registry http://test-api.tpddns.cn:4873    // 新增当前地址的账户
 
 腾讯企业邮箱,Foxmail：yangfeng@ishanhui.cn  Yf12345678
 
-
+gdrate.cn
 
 location /api/ {
                  proxy_pass      http://mch.dev.cpc:11030/;

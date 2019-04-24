@@ -5,6 +5,7 @@
 const path = require('path')
 // 开发环境调试地址
 const targetUrl={
+  testUrl:'http://www.w3school.com.cn/',
   test:'http://mch.test.cpc:11010/', // 测试环境
   dev:'http://mch.dev.cpc:11030/', // 开发环境
   yangpeng:'http://192.168.0.5:11010/'  // 杨鹏
@@ -18,7 +19,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: targetUrl.test,
+        target: targetUrl.testUrl,
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
