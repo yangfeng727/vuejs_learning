@@ -64,8 +64,7 @@ import CascadePlug from '../cascade/CascadePlug'
 // import { provinceAndCityData } from 'element-china-area-data'
 import CategoryData from '@/assets/Json/CategoryData.json'
 
-import $ from 'jquery'
-
+// import $ from 'jquery'
 export default {
   name: 'Page',
   components: {CascadePlug},
@@ -101,6 +100,7 @@ export default {
     },
     // es7 async await测试
     es7Type () {
+      let _self = this
       function demo1 (arg) {
         return new Promise((resolve, reject) => {
           if (arg) {
@@ -121,18 +121,21 @@ export default {
         // }, 1000)
 
         async function dd () {
-          return new Promise((resolve, reject) => {
-            $.ajax({
-              type: 'GET',
-              url: '/api/jquery/test1.txt',
-              success: function (data) {
-                console.log('ajax获取成功！！！')
-                resolve()
-              },
-              error: function (jqXHR) {
-                console.log('ajax获取失败！！！')
-              }
-            })
+          // return new Promise((resolve, reject) => {
+          //   // $.ajax({
+          //   //   type: 'GET',
+          //   //   url: '/api/jquery/test1.txt',
+          //   //   success: function (data) {
+          //   //     console.log('ajax获取成功！！！')
+          //   //     resolve()
+          //   //   },
+          //   //   error: function (jqXHR) {
+          //   //     console.log('ajax获取失败！！！')
+          //   //   }
+          //   // })
+          // })
+          return _self.axios.get('/api/jquery/test1.txt').then((response) => {
+            console.log(response.data)
           })
         }
         await dd()

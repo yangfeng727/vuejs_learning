@@ -2,6 +2,10 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
+    <p>测试
+      <el-button @click="addObj">点击新增对象属性</el-button>
+    </p>
+    <p v-if="obj.show">显示。。。。。。。。。。。。。。。。</p>
   </div>
 </template>
 
@@ -13,7 +17,8 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      htmlBgColor: ''
+      htmlBgColor: '',
+      obj: {}
     }
   },
   mounted () {
@@ -23,6 +28,16 @@ export default {
   },
   beforeDestroy () {
     $('body').css('background', this.htmlBgColor)
+  },
+  methods: {
+    addObj () {
+      // this.obj.show = true
+      if ('show' in this.obj) {
+        this.obj.show = !this.obj.show
+      } else {
+        this.$set(this.obj, 'show', true) // 对象用$set新增属性
+      }
+    }
   }
 }
 </script>
