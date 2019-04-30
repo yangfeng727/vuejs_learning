@@ -8,12 +8,14 @@ import router from './router'
 import 'element-ui/lib/theme-chalk/index.css'
 import ElementUI from 'element-ui'
 import './assets/common.less'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+import {$httpGET, $httpPOST, $httpForm} from './api/api' // 请求
 
-Vue.use(VueAxios, axios)
+// 定义全局变量
+Vue.prototype.$httpGET = $httpGET
+Vue.prototype.$httpPOST = $httpPOST
+Vue.prototype.$httpForm = $httpForm
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false // 阻止启动生产消息
 Vue.use(ElementUI)
 
 /* eslint-disable no-new */

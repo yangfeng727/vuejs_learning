@@ -7,6 +7,8 @@ const StoreIndex = resolve => require(['../components/testStore/Index'], resolve
 const testStore = resolve => require(['../components/testStore/TestStore'], resolve)
 const TestStoreModule = resolve => require(['../components/testStore/TestStoreModule'], resolve)
 
+// axios 测试
+const AxiosTest1 = resolve => require(['@/components/axiosTest/AxiosTest1'], resolve)
 Vue.use(Router)
 
 export default new Router({
@@ -34,6 +36,11 @@ export default new Router({
         name: 'testStoreModule',
         component: TestStoreModule
       }]
+    },
+    {
+      path: '/axiosTest1',
+      name: 'AxiosTest1',
+      component: AxiosTest1
     }
   ]
 })

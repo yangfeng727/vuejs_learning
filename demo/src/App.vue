@@ -5,6 +5,7 @@
       <router-link :to="{name:'HelloWorld'}">HelloWorld</router-link>
       <router-link :to="{name:'page'}">page</router-link>
       <router-link :to="{name:'storeIndex'}">storeIndex</router-link>
+      <router-link :to="{name:'AxiosTest1'}">AxiosTest1</router-link>
     </p>
     <router-view/>
   </div>
