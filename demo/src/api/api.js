@@ -3,7 +3,7 @@
  */
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import qs from 'qs'
+// import qs from 'qs'
 // import {router} from '@/router/index' // 引入路由实例
 
 /**
@@ -98,12 +98,14 @@ Axios.interceptors.response.use(res => {
  *  get的网络请求
  */
 export function $httpGET (url, config = {}) {
-  return new Promise((resolve, reject) => {
-    Axios.get(url, config)
-      .then(response => {
-        resolve(response.data)
-      })
-  })
+  // return new Promise((resolve, reject) => {
+  //   Axios.get(url, config)
+  //     .then(response => {
+  //       resolve(response.data)
+  //     })
+  // })
+
+  return Axios.get(url, config)
 }
 
 /**
@@ -117,12 +119,13 @@ export function $httpPOST (url, data = {}, config = {}) {
   //     return data
   //   }]
   // }
-  return new Promise((resolve, reject) => {
-    Axios.post(url, data, config)
-      .then(response => {
-        resolve(response.data)
-      })
-  })
+  // return new Promise((resolve, reject) => {
+  //   Axios.post(url, data, config)
+  //     .then(response => {
+  //       resolve(response.data)
+  //     })
+  // })
+  return Axios.post(url, data, config)
 }
 
 /**

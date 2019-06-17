@@ -36,3 +36,51 @@ const router = new Router({
 ```
 ## 2.关于vue methods
 在vue 方法中，若有a,b 两个data里面的变量，当其中任意一个发生变化时都会重新执行当前方法！！！！！！！
+
+## 3.vue的动态路径
+```$xslt
+1、绝对路径访问
+把图片放到静态资源目录static目录下（build 会将static目录中的文件或者文件夹按照原本的结构放在dist目录下），并用/static绝对路径访问：
+<template>
+    <div>
+        <img :src="src" alt="图片" />
+    </div>
+</template>
+<script>
+    export default{
+        data(){
+          return {
+              src:`/static/img/user.png`
+          }
+        }
+    }
+</script>
+
+2、使用require
+如果想在不调整目录结构的情况下读取图片，还可以使用require：
+
+data(){
+     return {
+         src:require('../assets/user.png')    //重点看这里
+    }
+}
+
+3、使用import
+也可以用import引入图片路径：
+<template>
+    <div>
+        <img :src="src" alt="图片" />
+    </div>
+</template>
+<script>
+    import userPath from '../assets/user.png'
+    export default{
+        data(){
+          return {
+              src:userPath 
+          }
+        }
+    }
+</script>
+
+```

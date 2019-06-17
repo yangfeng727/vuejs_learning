@@ -32,3 +32,14 @@ location /api/ {
         #         proxy_pass      http://192.168.0.5:9101/;
          #       proxy_set_header x-forwarded-for $remote_addr;
         #}
+
+
+
+
+产品原型原型页面
+https://k0kf61.axshare.com
+
+
+
+qwer1234
+
