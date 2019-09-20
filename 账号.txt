@@ -10,8 +10,14 @@ npm set registry http://test-api.tpddns.cn:4873                // 切换私服镜像地
 npm adduser --registry http://test-api.tpddns.cn:4873    // 新增当前地址的账户
 
 
+//办公环境2 npm用户名密码
+yangfeng 12345678 896148932@qq.com
+
+
 
 商户平台 yangfeng@bluesdk.com  test123
+
+yftest@bluesdk.com test123
 
 
 //办公邮箱已开通   邮箱账号 姓名拼音 + @ishanhui.cn
@@ -42,4 +48,11 @@ https://k0kf61.axshare.com
 
 
 qwer1234
+
+
+
+蓝灯：
+      896148932@qq.com
+      Yf12345678
+
 

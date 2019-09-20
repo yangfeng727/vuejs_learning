@@ -100,3 +100,34 @@ data(){
 最后解决办法：  
 1.分页时，不改变地址栏  
 2.将需要改变的子组件this传递到分页组件
+
+## 在使用vue+vant开发html5项目时，需要rem适配 [参考地址](https://www.cnblogs.com/skylineStar/p/10036525.html)
+### 方法：
+1.和之前在main.js写js控制根font-size，并在样式中使用rem适配不同
+2.项目中安装lib-flexible
+```angular2
+一、项目中安装lib-flexible
+
+npm install lib-flexible --save
+二、在项目的入口main.js文件中引入lib-flexible
+
+import 'lib-flexible'
+``` 
+2.安装postcss-px2rem-exclude
+```angular2
+// postcss.config.js
+
+module.exports = {
+  plugins: {
+    autoprefixer: {},
+    "postcss-px2rem-exclude": {
+      remUnit: 75,
+      exclude: /node_modules|folder_name/i
+    }
+  }
+};
+```
+
+
+最后需要注意的是，使用lib-flexible和postcss-px2rem 和 使用 lib-flexible 和 px2rem-loader 自动转换两种方式都
+造成了页面组件中的样式都变小了，所以使用postcss-px2rem-exclude
