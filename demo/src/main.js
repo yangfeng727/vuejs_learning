@@ -8,6 +8,7 @@ import router from './router'
 import 'element-ui/lib/theme-chalk/index.css'
 import ElementUI from 'element-ui'
 import './assets/common.less'
+import commonPlugin from './plugins/common'
 import {$httpGET, $httpPOST, $httpForm} from './api/api' // 请求
 
 // 定义全局变量
@@ -17,6 +18,7 @@ Vue.prototype.$httpForm = $httpForm
 
 Vue.config.productionTip = false // 阻止启动生产消息
 Vue.use(ElementUI)
+Vue.use(commonPlugin)
 
 /* eslint-disable no-new */
 new Vue({
@@ -24,5 +26,19 @@ new Vue({
   router,
   store, // 使用store
   components: {App},
-  template: '<App/>'
+  template: '<App/>',
+  beforeMount () {
+    // // rem适配
+    // let fn = function () {
+    //   let html = document.getElementsByTagName('html')[0]
+    //   let clientWidth = document.body.clientWidth || document.documentElement.clientWidth
+    //   if (!clientWidth) return
+    //   clientWidth = clientWidth > 1920 ? 1920 : clientWidth <= 1024 ? 1024 : clientWidth
+    //   html.style.fontSize = (clientWidth / 19.2) + 'px'
+    // }
+    // fn()
+    // window.addEventListener('resize', fn, false)
+    // echarts resize
+    this.$reCharts.windowResizeECharts()
+  }
 })

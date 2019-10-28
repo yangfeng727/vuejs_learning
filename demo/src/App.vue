@@ -7,6 +7,7 @@
       <router-link :to="{name:'storeIndex'}">storeIndex</router-link>
       <router-link :to="{name:'AxiosTest1'}">AxiosTest1</router-link>
       <router-link :to="{name:'elTable'}">ElementUi Test</router-link>
+      <router-link :to="{name:'chartIndex'}">echarts</router-link>
     </p>
     <router-view/>
   </div>
