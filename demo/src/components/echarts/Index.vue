@@ -1,12 +1,18 @@
 <template>
   <div class="wrap">
-    <!--当日额度统计-->
+    <!--双轴分割折线图-->
     <div class="com-box">
-      <h1>横坐标带点的折线图</h1>
-      <Chart :chart-data='chart.chartData' :option="chart.option" class="line-chart" id="line-chart"/>
+      <h1>双轴分割折线图<span class="note">(两根轴的量度单位不同)</span></h1>
+      <x-y-line-chart :chart-data='lineChart.chartData' :showTwoAxis="true" class="line-chart" id="line-chart"/>
     </div>
 
-    <!--多类型图-->
+    <!--横坐标带点的折线图-->
+    <div class="com-box">
+      <h1>横坐标带点的折线图</h1>
+      <Chart :chart-data='chart.chartData' :option="chart.option" class="line-chart" id="line-chart1"/>
+    </div>
+
+    <!--多柱柱状图-->
     <div class="com-box">
       <h1>多柱柱状图</h1>
       <bar-chart :chart-data='barChart.chartData' class="line-chart" id="line-chart2"/>
@@ -17,15 +23,25 @@
 <script>
   import Chart from './common/Chart'
   import BarChart from './common/BarChart'
+  import XYLineChart from './common/XYLineChart'
 
   export default {
     name: 'eharts',
     components: {
       Chart,
-      BarChart
+      BarChart,
+      XYLineChart
     },
     data () {
       return {
+        lineChart: {
+          chartData: {
+            lineColor: ['#f1c00a', '#227ed3'],
+            name: ['交易笔数', '交易金额'],
+            xData: ['2015', '2016', '2017', '2018', '2019'], // 横轴值
+            yData: [[20, 80, 99, 68, 105], [260, 500, 1005, 200, 1600]]
+          }
+        },
         chart: {
           chartData: {
             lineColor: [['#96A7FD', '#62C5FC']], // 线的渐变色
@@ -56,6 +72,11 @@
   .wrap {
     background: #f8f8f8;
     overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    /*flex-direction: ;*/
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .line-chart {
@@ -64,12 +85,17 @@
   }
 
   .com-box {
+    margin: 60px;
     width: 800px;
     background: rgba(255, 255, 255, 1);
     box-shadow: -.02rem .07rem .15rem 1px rgba(203, 204, 204, 0.18);
     border-radius: .03rem;
-    margin: 20px auto;
+    /*margin: 20px auto;*/
     box-sizing: border-box;
     padding: 15px 60px;
+  }
+
+  .note {
+    font-size: 18px;
   }
 </style>
