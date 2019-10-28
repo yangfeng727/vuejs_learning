@@ -6,15 +6,16 @@
       <router-link :to="{name:'page'}">page</router-link>
       <router-link :to="{name:'storeIndex'}">storeIndex</router-link>
       <router-link :to="{name:'AxiosTest1'}">AxiosTest1</router-link>
+      <router-link :to="{name:'elTable'}">ElementUi Test</router-link>
     </p>
     <router-view/>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+  export default {
+    name: 'App'
+  }
 </script>
 
 <style>

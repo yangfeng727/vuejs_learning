@@ -9,6 +9,9 @@ const TestStoreModule = resolve => require(['../components/testStore/TestStoreMo
 
 // axios 测试
 const AxiosTest1 = resolve => require(['@/components/axiosTest/AxiosTest1'], resolve)
+// element测试
+const ElIndex = resolve => require(['@/components/elementUiTest/Index'], resolve)
+const ElTable = resolve => require(['@/components/elementUiTest/Table'], resolve)
 Vue.use(Router)
 
 export default new Router({
@@ -41,6 +44,16 @@ export default new Router({
       path: '/axiosTest1',
       name: 'AxiosTest1',
       component: AxiosTest1
+    },
+    {
+      path: '/elIndex',
+      name: 'elIndex',
+      component: ElIndex,
+      children: [{
+        path: '/elTable',
+        name: 'elTable',
+        component: ElTable
+      }]
     }
   ]
 })
