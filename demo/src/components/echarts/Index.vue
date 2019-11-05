@@ -68,7 +68,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .wrap {
     background: #f8f8f8;
     overflow: hidden;

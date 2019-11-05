@@ -14,6 +14,8 @@ const ElIndex = resolve => require(['@/components/elementUiTest/Index'], resolve
 const ElTable = resolve => require(['@/components/elementUiTest/Table'], resolve)
 // echarts
 const ChartIndex = resolve => require(['@/components/echarts/Index'], resolve)
+// vue render函数使用
+const RenderIndex = resolve => require(['@/components/render/Index'], resolve)
 Vue.use(Router)
 
 export default new Router({
@@ -61,6 +63,11 @@ export default new Router({
       path: '/chartIndex',
       name: 'chartIndex',
       component: ChartIndex
+    },
+    {
+      path: '/renderIndex',
+      name: 'renderIndex',
+      component: RenderIndex
     }
   ]
 })
