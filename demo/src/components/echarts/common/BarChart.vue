@@ -69,7 +69,7 @@
               param.map((item, index) => {
                 // str += `<br/>${item.marker + item.seriesName}: ${item.value}`
                 let color = '' // 当前颜色，不使用item.marker的原因，当设置渐变时，颜色为对象，显示错误，这里重写
-                if (typeof (str) === 'string') {
+                if (typeof (item.color) === 'string') {
                   color = item.color
                 } else {
                   color = item.color.colorStops[0].color
