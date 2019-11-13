@@ -3,13 +3,14 @@
  */
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import qs from 'qs'
 // import qs from 'qs'
 // import {router} from '@/router/index' // 引入路由实例
 
 /**
  * 基础配置
  */
-export const URL = '' // 域名（开发中应该从某个全局配置文件中导入）
+export const URL = window.location.protocol + '//' + window.location.host // 域名（开发中应该从某个全局配置文件中导入）
 export const Axios = axios.create({
   baseURL: URL,
   timeout: 10000, // 请求超时时间
@@ -20,21 +21,24 @@ export const Axios = axios.create({
  * *添加请求拦截器
  */
 Axios.interceptors.request.use(config => {
-  config.url = '/api' + config.url
-  // config.cancelToken = new CancelToken((c) => { // cancelToken的使用，取消请求
-  //   // cancel = c; // 本来是这样调用
-  //   removePending(config, c)
-  // })
-  /* 检查权限,添加授权码 */
-  if (Cookies('authCode')) {
-    /*       config.headers.post['Authorization'] = Cookies('authCode');
-             config.headers.get['Authorization'] = Cookies('authCode'); */
-  }
-  return config
-},
-error => {
-  return Promise.reject(error)
-})
+    config.url = URL + '/api' + config.url + '?_t=' + new Date().getTime()
+    // axios的默认请求头是Content-Type: application/json
+    // 使用这个请求头会出现向服务器请求两次的情况
+    // config.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    // config.cancelToken = new CancelToken((c) => { // cancelToken的使用，取消请求
+    //   // cancel = c; // 本来是这样调用
+    //   removePending(config, c)
+    // })
+    /* 检查权限,添加授权码 */
+    if (Cookies('authCode')) {
+      /*       config.headers.post['Authorization'] = Cookies('authCode');
+               config.headers.get['Authorization'] = Cookies('authCode'); */
+    }
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  })
 
 /**
  * 添加响应拦截器
@@ -43,20 +47,37 @@ Axios.interceptors.response.use(res => {
   // removePending(res.config) // 不管成功与否都从记录中移除请求记录
   /*  检查授权码是否过期 */
   switch (res.data.retCode) {
-    case '0000': // 成功
-      return res
-    case '0001': // 请先登陆
-      return res
+    case '00': // 成功
+    case '8000': // 重新登陆
+      // if (globalObj.checkLogin) {
+      //   let redirect = router.currentRoute.fullPath
+      //   setTimeout(() => {
+      //     router.replace({name: 'login', query: {goBack: redirect}})
+      //   }, 2000)
+      // }'
+      break
+    case '01': // 失败
+    case '02': // 参数错误
+    case '99': // 系统繁忙，请稍后再试
+    case '8008': // 系统繁忙，请稍后再试
     case '0002': // 没有权限
-      return res
     case '0003': // token失效
-      return res
+      break
+    default:
+      // if (msgObj[res.config.url]) { // 错误提示
+      //   errorAlert(res.data ? res.data.retMsg : '')
+      // }
+      break
   }
+
+  // 其他状态直接返回
+  return res.data
 }, error => {
   // removePending(error.config) // 不管成功与否都从记录中移除请求记录
   // 如果授权码过期则返回登录页
   // 接口请求报错
-  switch (error.response.status) {
+  let status = error.response ? error.response.status : ''
+  switch (status) {
     case '404':
       // router.push({path: '/404'})
       break
@@ -111,7 +132,13 @@ export function $httpGET (url, config = {}) {
 /**
  *  提交JSON格式的网络请求
  */
-export function $httpPOST (url, data = {}, config = {}) {
+export function $httpPOST (url, data = {}, config = {
+  headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+  transformRequest: [function (data) {
+    data = qs.stringify(data)
+    return data
+  }]
+}) {
   // config = {
   //   headers: {'Content-Type': 'application/json;charset=utf-8'},
   //   transformRequest: [function (data) {
@@ -131,12 +158,16 @@ export function $httpPOST (url, data = {}, config = {}) {
 /**
  *  提交表单形式的网络请求
  */
-export function $httpForm (url, data = {}, config = {}) {
-  return new Promise((resolve, reject) => {
-    Axios.post(url, data, {
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    }).then(response => {
-      resolve(response.data)
-    })
-  })
+export function $httpForm (url, data = {}, config = {
+  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+}) {
+  // return new Promise((resolve, reject) => {
+  //   Axios.post(url, data, {
+  //     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+  //   }).then(response => {
+  //     resolve(response.data)
+  //   })
+  // })
+// Axios本身返回的也是promise
+  return Axios.post(url, data, config)
 }
