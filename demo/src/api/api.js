@@ -21,24 +21,24 @@ export const Axios = axios.create({
  * *添加请求拦截器
  */
 Axios.interceptors.request.use(config => {
-    config.url = URL + '/api' + config.url + '?_t=' + new Date().getTime()
-    // axios的默认请求头是Content-Type: application/json
-    // 使用这个请求头会出现向服务器请求两次的情况
-    // config.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    // config.cancelToken = new CancelToken((c) => { // cancelToken的使用，取消请求
-    //   // cancel = c; // 本来是这样调用
-    //   removePending(config, c)
-    // })
-    /* 检查权限,添加授权码 */
-    if (Cookies('authCode')) {
-      /*       config.headers.post['Authorization'] = Cookies('authCode');
-               config.headers.get['Authorization'] = Cookies('authCode'); */
-    }
-    return config
-  },
-  error => {
-    return Promise.reject(error)
-  })
+  config.url = URL + '/api' + config.url + '?_t=' + new Date().getTime()
+  // axios的默认请求头是Content-Type: application/json
+  // 使用这个请求头会出现向服务器请求两次的情况
+  // config.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+  // config.cancelToken = new CancelToken((c) => { // cancelToken的使用，取消请求
+  //   // cancel = c; // 本来是这样调用
+  //   removePending(config, c)
+  // })
+  /* 检查权限,添加授权码 */
+  if (Cookies('authCode')) {
+    /*       config.headers.post['Authorization'] = Cookies('authCode');
+             config.headers.get['Authorization'] = Cookies('authCode'); */
+  }
+  return config
+},
+error => {
+  return Promise.reject(error)
+})
 
 /**
  * 添加响应拦截器

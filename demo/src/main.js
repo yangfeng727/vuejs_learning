@@ -9,6 +9,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import ElementUI from 'element-ui'
 import './assets/common.less'
 import commonPlugin from './plugins/common'
+// import 'lib-flexible/flexible.js'
+import './plugins/node_models_lib/lib-flexible/flexible.js' // 适配pc端的rem时，由于flexible.js不支持，更改下源码
 import {$httpGET, $httpPOST, $httpForm} from './api/api' // 请求
 
 // 定义全局变量
