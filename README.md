@@ -131,3 +131,6 @@ module.exports = {
 
 最后需要注意的是，使用lib-flexible和postcss-px2rem 和 使用 lib-flexible 和 px2rem-loader 自动转换两种方式都
 造成了页面组件中的样式都变小了，所以使用postcss-px2rem-exclude
+
+## vue pc 端rem适配方案[参考地址](https://blog.csdn.net/MrzhangxianshengJS/article/details/84562547)
+利用px2rem-loader和lib-flexible实现PC端大屏项目的全自动开发,需要注意的是，由于lib-flexible不支持pc端，需要下载到本地，更改下源码，实现根据浏览器大小动态改变rem（相当于之前自己写的resize方法重新计算rem值）
