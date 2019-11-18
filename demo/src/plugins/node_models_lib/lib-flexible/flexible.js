@@ -66,7 +66,7 @@
     var width = docEl.getBoundingClientRect().width
     if (width / dpr > 540) {
       // width = 540 * dpr
-      width = width * dpr // 由于作者没考虑pc端，这里更改下源码
+      width = width * dpr // 由于作者没考虑pc端，这里更改下源码,当屏幕宽度超过540的时候我们应该以实际宽度重新计算,从而来做到适应PC
     }
     var rem = width / 10
     docEl.style.fontSize = rem + 'px'

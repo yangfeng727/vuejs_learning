@@ -33,8 +33,8 @@ exports.cssLoaders = function (options) {
   const px2remLoader = {
     loader: 'px2rem-loader',
     options: {
-      remUnit: 192,
-      remPrecision: 5
+      remUnit: 192, //设计图的宽度/10 比如你的设计图是1920的宽度 这里你就1920/10=192
+      remPrecision: 5 //换算的rem保留几位小数点
     }
   }
 
