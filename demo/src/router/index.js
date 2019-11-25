@@ -12,6 +12,7 @@ const AxiosTest1 = resolve => require(['@/components/axiosTest/AxiosTest1'], res
 // element测试
 const ElIndex = resolve => require(['@/components/elementUiTest/Index'], resolve)
 const ElTable = resolve => require(['@/components/elementUiTest/Table'], resolve)
+const ElUpload = resolve => require(['@/components/elementUiTest/Upload'], resolve)
 // echarts
 const ChartIndex = resolve => require(['@/components/echarts/Index'], resolve)
 // vue render函数使用
@@ -57,6 +58,10 @@ export default new Router({
         path: '/elTable',
         name: 'elTable',
         component: ElTable
+      }, {
+        path: '/elUpload',
+        name: 'elUpload',
+        component: ElUpload
       }]
     },
     {

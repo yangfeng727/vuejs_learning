@@ -6,6 +6,7 @@
       <el-button @click="addObj">点击新增对象属性</el-button>
     </p>
     <p v-if="obj.show">显示。。。。。。。。。。。。。。。。</p>
+    <p>文件下载显示案例：<span class="s-file" v-html="$downloadFile('https://fuss10.elemecdn.com/a_ddd.xls')"></span></p>
   </div>
 </template>
 
