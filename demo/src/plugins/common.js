@@ -119,11 +119,72 @@ commonPlugin.install = function (Vue, options) {
     return url
   }
 
-  Vue.prototype.$imgHtML = function (value) {
-    if (typeof value === 'string' && this.$checkIsImg(value)) {
-      return '<a href="' + value + '" target="_blank"><img style="max-width: 200px;max-height: 117px" src="' + value + '"></a>'
+  // let globIndex = 0
+  // a标签download实现下载 base64图片文件下载
+  Vue.prototype.$aDownload = function (imgUrlBase64) {
+    // 这里是获取到的图片base64编码,这里只是个例子哈，要自行编码图片替换这里才能测试看到效果
+    // const imgUrl = 'data:image/png;base64,...'
+    // 如果浏览器支持msSaveOrOpenBlob方法（也就是使用IE浏览器的时候），那么调用该方法去下载图片
+    if (window.navigator.msSaveOrOpenBlob) {
+      window.downloadbase64IE = function (imgUrlBase64) {
+        // 截取base64的数据内容（去掉前面的描述信息，类似这样的一段：data:image/png;base64,）并解码为2进制数据
+        let bstr = atob(imgUrlBase64.split(',')[1])
+        // 获取解码后的二进制数据的长度，用于后面创建二进制数据容器
+        let n = bstr.length
+        // 创建一个Uint8Array类型的数组以存放二进制数据
+        let u8arr = new Uint8Array(n)
+        // 将二进制数据存入Uint8Array类型的数组中
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n)
+        }
+        // 创建blob对象
+        let blob = new Blob([u8arr])
+        // 调用浏览器的方法，调起IE的下载流程
+        window.navigator.msSaveOrOpenBlob(blob, 'default' + '.' + 'png')
+      }
+      // 这里得用encodeURIComponent转换base64，不然会提示字符错误
+      return `<a onclick="downloadbase64IE(decodeURIComponent('${encodeURIComponent(imgUrlBase64)}'))"><img style="max-width: 200px;max-height: 117px" src="${imgUrlBase64}"></a>`
+    } else {
+      // 这里就按照chrome等新版浏览器来处理
+      // const a = document.createElement('a')
+      // a.href = imgUrl
+      // a.setAttribute('download', 'chart-download')
+      // a.click()
     }
-    return value
+    return `<a href="${imgUrlBase64}" download="default"><img style="max-width: 200px;max-height: 117px" src="${imgUrlBase64}"></a>`
+  }
+
+  //  base64/图片地址 显示
+  Vue.prototype.$rImg = function (val) {
+    if (!val) return ''
+    if (typeof val === 'string') {
+      if (this.$checkIsImg(val)) { // 图片地址直接显示
+        return '<a href="' + val + '" target="_blank"><img style="max-width: 200px;max-height: 117px" src="' + val + '"></a>'
+      } else { // base64图片显示
+        let _src = 'data:image/png;base64,' + val
+        // return '<a href="' + _src + '" download><img style="max-width: 200px;max-height: 117px" src="' + _src + '"></a>'
+        return this.$aDownload(_src)
+      }
+    }
+    return val
+  }
+
+  // 显示返回的图片（图片数组，字符串）=》显示图片
+  Vue.prototype.$imgHtML = function (value) {
+    let str = ''
+    // 返回的图片是数组形式
+    if (Object.prototype.toString.call(value) === '[object Array]') {
+      value.map((item) => {
+        str += this.$rImg(item) + '<br/>'
+      })
+    } else {
+      str = this.$rImg(value)
+    }
+    return str
+    // if (typeof value === 'string' && this.$checkIsImg(value)) {
+    //   return '<a href="' + value + '" target="_blank"><img style="max-width: 200px;max-height: 117px" src="' + value + '"></a>'
+    // }
+    // return value
   }
 
   /**
@@ -139,6 +200,8 @@ commonPlugin.install = function (Vue, options) {
       str = 'fu_ppt.gif'
     } else if (this.$checkIsRar(url)) { // zip
       str = 'fu_rar.gif'
+    } else if (this.$checkIsImg(url)) { // 图片
+      return url // 返回当前图片地址
     }
     if (str !== '') {
       return `/static/icon/${str}`
@@ -147,13 +210,10 @@ commonPlugin.install = function (Vue, options) {
   }
 
   /**
-   *  判断文件类型，并显示相应的图片 文件名称
-   * */
-  /**
-   *  判断文件类型，并显示相应的图片 文件名称
+   *  判断文件类型excel,word,png等，并显示相应的图片 文件名称
    * */
   Vue.prototype.$downloadFile = function (url) {
-    if (typeof url !== 'string') {
+    if (typeof url !== 'string' || url === '') {
       return url
     }
     let fileName = this.$getFileName(url) // 文件名称
@@ -164,11 +224,25 @@ commonPlugin.install = function (Vue, options) {
       let str = this.$FIName(url)
       if (str !== '') {
         content = `<img src="${str}" style="width:32px;height:32px;"/> ${fileName}`
-      } else {
+      } else { // 默认显示的文件图标
         content = `<i class="el-icon-document"></i> ${fileName}`
       }
     }
     return `<a href="${url}" download target="_blank" style="margin-right:5px;">${content}</a>`
+  }
+
+  // 详情页返回的数据，本来为对象，却返回null造成页面渲染失败  按照defaultObj的初始格式来给mergObj设置初值
+  Vue.prototype.$objMerge = function (defaultObj, mergObj) {
+    for (let x in mergObj) {
+      if (!mergObj[x]) {
+        if (Object.prototype.toString.call(defaultObj[x]) === '[object Array]') {
+          mergObj[x] = []
+        } else if (Object.prototype.toString.call(defaultObj[x]) === '[object Object]') {
+          mergObj[x] = {}
+        }
+      }
+    }
+    return mergObj
   }
 }
 export default commonPlugin
