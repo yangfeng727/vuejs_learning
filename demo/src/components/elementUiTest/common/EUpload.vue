@@ -69,7 +69,7 @@
         default: 2
       }
     },
-    data: function () {
+    data () {
       return {
         loading: false,
         uploadUrl: appConfig.uploadUrl(),
@@ -84,6 +84,13 @@
           //   url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
           // }
         ]
+      }
+    },
+    watch: {
+      urlVal (newVal, oldVal) {
+        if (newVal.length === 0) {
+          this.fileList = []
+        }
       }
     },
     methods: {
@@ -185,7 +192,11 @@
       }
     },
     created () {
+      this.fileList = this.urlVal
       // console.log(this.uploadUrl, 444)
+    },
+    updated () {
+      // console.log(this.urlVal, this.fileList, 666666666)
     }
   }
 </script>
