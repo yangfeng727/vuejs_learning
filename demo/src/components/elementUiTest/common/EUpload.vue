@@ -136,7 +136,7 @@
       // },
       onBeforeUpload (file) {
         // const isIMAGE = file.type === 'image/jpeg' || 'image/gif' || 'image/png'
-        const isLt1M = file.size / 1024 / 1024 < 1
+        const isLt1M = file.size / 1024 / 1024 < this.maxSize
         // if (!isIMAGE) {
         //   this.$message.error('上传文件只能是图片格式!')
         // }
