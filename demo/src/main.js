@@ -12,6 +12,7 @@ import commonPlugin from './plugins/common'
 // import 'lib-flexible/flexible.js'
 import './plugins/node_models_lib/lib-flexible/flexible.js' // 适配pc端的rem时，由于flexible.js不支持，更改下源码
 import {$httpGET, $httpPOST, $httpForm} from './api/api' // 请求
+import i18n from '@/locales'
 
 // 定义全局变量
 Vue.prototype.$httpGET = $httpGET
@@ -25,6 +26,7 @@ Vue.use(commonPlugin)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  i18n,
   router,
   store, // 使用store
   components: {App},

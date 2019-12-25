@@ -13,6 +13,7 @@ const AxiosTest1 = resolve => require(['@/components/axiosTest/AxiosTest1'], res
 const ElIndex = resolve => require(['@/components/elementUiTest/Index'], resolve)
 const ElTable = resolve => require(['@/components/elementUiTest/Table'], resolve)
 const ElUpload = resolve => require(['@/components/elementUiTest/Upload'], resolve)
+const RichText = resolve => require(['@/components/elementUiTest/RichText'], resolve)
 // echarts
 const ChartIndex = resolve => require(['@/components/echarts/Index'], resolve)
 // vue render函数使用
@@ -62,6 +63,10 @@ export default new Router({
         path: '/elUpload',
         name: 'elUpload',
         component: ElUpload
+      }, {
+        path: '/richText',
+        name: 'richText',
+        component: RichText
       }]
     },
     {
