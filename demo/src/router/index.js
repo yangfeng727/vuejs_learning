@@ -18,6 +18,8 @@ const RichText = resolve => require(['@/components/elementUiTest/RichText'], res
 const ChartIndex = resolve => require(['@/components/echarts/Index'], resolve)
 // vue render函数使用
 const RenderIndex = resolve => require(['@/components/render/Index'], resolve)
+// vue 排序拖拽组件
+const DraggableIndex = resolve => require(['@/components/draggable/Index'], resolve)
 Vue.use(Router)
 
 export default new Router({
@@ -78,6 +80,11 @@ export default new Router({
       path: '/renderIndex',
       name: 'renderIndex',
       component: RenderIndex
+    },
+    {
+      path: '/draggableIndex',
+      name: 'draggableIndex',
+      component: DraggableIndex
     }
   ]
 })
