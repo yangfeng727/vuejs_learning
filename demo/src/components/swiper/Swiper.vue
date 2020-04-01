@@ -45,7 +45,8 @@
     },
     data () {
       return {
-        ulStyle: {width: '750px', paddingLeft: '20px'}, // 轮播图容器宽度
+        bSidesWidth: 20, // effect为zoom时两侧空隙的单边距离
+        ulStyle: {width: '750px', paddingLeft: this.bSidesWidth}, // 轮播图容器宽度
         itemWidth: 750, // 单个轮播图容器的宽度，默认屏幕宽度,
         swiperStyle: {}, // 控制轮播的样式
         index: 0, // 当前显示的轮播图索引，默认第一张
@@ -71,11 +72,11 @@
             this.itemWidth = document.body.clientWidth // 获取屏幕的宽度
           } else if (this.effect === 'zoom') {
             // 如果是缩放模式，控制轮播图显示的宽度，两边流出空隙
-            this.itemWidth = document.body.clientWidth - 40 // 获取屏幕的宽度
+            this.itemWidth = document.body.clientWidth - this.bSidesWidth * 2 // 获取屏幕的宽度
           }
           this.handleType()
-          var length = this.list.length // 获取列表的个数
-          this.ulStyle.width = parseInt((this.itemWidth + 40) * length) + 'px' // 容器总宽度
+          let length = this.list.length // 获取列表的个数
+          this.ulStyle.width = parseInt((this.itemWidth + this.bSidesWidth * 2) * length) + 'px' // 容器总宽度
         })
       },
       /**
@@ -92,7 +93,7 @@
         if (this.effect === 'normal') {
           this.ulStyle.paddingLeft = 0 // 将起始位置左侧的padding置为0
         } else if (this.effect === 'zoom') {
-          this.ulStyle.paddingLeft = '20px' // 保证左侧有一定的位移
+          this.ulStyle.paddingLeft = this.bSidesWidth + 'px' // 保证左侧有一定的位移
         }
       },
       /**
@@ -106,7 +107,7 @@
         } else {
           this.ulStyle.paddingLeft = 0 // 将起始位置左侧的padding置为0
           if (this.effect === 'zoom') {
-            moveX = moveX - 20
+            moveX = moveX - this.bSidesWidth
           }
         }
         this.swiperStyle = {
@@ -142,11 +143,9 @@
           return
         }
         let moveX = e.touches[0].pageX - this.touchStart.pageX
-        if ((this.index === 0 && moveX > 0) || (this.index === this.list.length - 1 && moveX < 0)) {
-
-        } else {
+        if (!(this.index === 0 && moveX > 0) && !(this.index === this.list.length - 1 && moveX < 0)) {
           this.swiperStyle = {
-            transform: 'translateX(' + (-this.index * this.itemWidth + moveX) + 'px)' // 根据手指的位置移动页面
+            transform: 'translateX(' + (-this.index * this.itemWidth + moveX - this.bSidesWidth) + 'px)' // 根据手指的位置移动页面
           }
         }
       },
@@ -218,7 +217,7 @@
         &.zoom {
           border-radius: 0.16rem;
           transform: scale(0.93);
-          transition: 0.5s ease;
+          transition: all 0.5s ease;
 
           &.active {
             transform: scale(1);
