@@ -20,6 +20,8 @@ const ChartIndex = resolve => require(['@/components/echarts/Index'], resolve)
 const RenderIndex = resolve => require(['@/components/render/Index'], resolve)
 // vue 排序拖拽组件
 const DraggableIndex = resolve => require(['@/components/draggable/Index'], resolve)
+// vue 轮播图
+const SwiperIndex = resolve => require(['@/components/swiper/Index'], resolve)
 Vue.use(Router)
 
 export default new Router({
@@ -85,6 +87,11 @@ export default new Router({
       path: '/draggableIndex',
       name: 'draggableIndex',
       component: DraggableIndex
+    },
+    {
+      path: '/swiperIndex',
+      name: 'swiperIndex',
+      component: SwiperIndex
     }
   ]
 })
