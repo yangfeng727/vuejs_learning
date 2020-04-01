@@ -5,6 +5,12 @@
     <a href="https://github.com/xiaoshengxianjun/coolvui/tree/master/packages/swiper">git地址</a>
     <div>
       <swiper height="3.4rem" :list="bannerList" effect="zoom"></swiper>
+      <p style="margin-top:10px;"></p>
+      <swiper height="3.4rem" :list="bannerList" effect="zoom">
+        <template slot="list" slot-scope="{item}">
+          自定义list{{item}}
+        </template>
+      </swiper>
     </div>
     <div class="text">
       <p>实现思路：</p>

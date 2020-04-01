@@ -5,7 +5,7 @@
       <li v-for="(item, ind) in list" :key="ind" :style="{width: itemWidth + 'px'}"
           :class="[index===ind?'active':'', effect]" @click="handleClick(item)">
         <div>
-          {{item}}
+          <slot name="list" :item="item">{{item}}</slot>
         </div>
       </li>
     </ul>
@@ -45,7 +45,7 @@
     },
     data () {
       return {
-        bSidesWidth: 20, // effect为zoom时两侧空隙的单边距离
+        bSidesWidth: 40, // effect为zoom时两侧空隙的单边距离
         ulStyle: {width: '750px', paddingLeft: this.bSidesWidth}, // 轮播图容器宽度
         itemWidth: 750, // 单个轮播图容器的宽度，默认屏幕宽度,
         swiperStyle: {}, // 控制轮播的样式
@@ -216,7 +216,7 @@
 
         &.zoom {
           border-radius: 0.16rem;
-          transform: scale(0.93);
+          transform: scale(0.85);
           transition: all 0.5s ease;
 
           &.active {
