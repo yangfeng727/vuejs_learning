@@ -4,7 +4,7 @@
     <ul :style="[ulStyle, swiperStyle]">
       <li v-for="(item, ind) in list" :key="ind" :style="{width: itemWidth + 'px'}"
           :class="[index===ind?'active':'', effect]" @click="handleClick(item)">
-        <div>
+        <div :style="{background: bgColor}">
           <slot name="list" :item="item">{{item}}</slot>
         </div>
       </li>
@@ -17,6 +17,10 @@
 <script>
   export default {
     props: {
+      bgColor: { // li bg color
+        type: String,
+        default: '#ffbdd4'
+      },
       height: {
         type: String,
         default: '3rem'
@@ -25,7 +29,7 @@
         type: Object,
         default () {
           return {
-            showDots: true, // 是否显示分页器
+            showDots: false, // 是否显示分页器
             interval: 3000, // 轮播间隔时间，默认3s
             autoplay: false, // 是否自动播放
             loop: false // 是否循环轮播
@@ -45,7 +49,7 @@
     },
     data () {
       return {
-        bSidesWidth: 40, // effect为zoom时两侧空隙的单边距离
+        bSidesWidth: 30, // effect为zoom时两侧空隙的单边距离
         ulStyle: {width: '750px', paddingLeft: this.bSidesWidth}, // 轮播图容器宽度
         itemWidth: 750, // 单个轮播图容器的宽度，默认屏幕宽度,
         swiperStyle: {}, // 控制轮播的样式
@@ -202,7 +206,6 @@
         overflow: hidden;
 
         > div {
-          background: #ffbdd4;
           color: #ffffff;
           text-align: center;
           width: 100%;
@@ -216,7 +219,7 @@
 
         &.zoom {
           border-radius: 0.16rem;
-          transform: scale(0.85);
+          transform: scale(0.88);
           transition: all 0.5s ease;
 
           &.active {
