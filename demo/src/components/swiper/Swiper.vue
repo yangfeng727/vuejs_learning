@@ -177,8 +177,12 @@
       }
     },
     mounted () {
+      window.addEventListener('resize', this.calcWidth, false)
       this.calcWidth()
       this.handleLoopMove()
+    },
+    beforeDestroy () {
+      window.removeEventListener('resize', this.calcWidth, false)
     },
     destroyed () {
       // 清除定时器
@@ -198,11 +202,14 @@
       white-space: nowrap;
       height: 100%;
       transition: 500ms ease;
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
 
       li {
         list-style: none;
         height: 100%;
-        float: left;
+        /*float: left;*/
         overflow: hidden;
 
         > div {
