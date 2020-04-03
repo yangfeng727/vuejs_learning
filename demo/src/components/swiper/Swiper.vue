@@ -96,7 +96,7 @@
       handleType () {
         if (this.effect === 'normal') {
           this.ulStyle.paddingLeft = 0 // 将起始位置左侧的padding置为0
-        } else if (this.effect === 'zoom') {
+        } else if (this.effect === 'zoom' && this.index === 0) {
           this.ulStyle.paddingLeft = this.bSidesWidth + 'px' // 保证左侧有一定的位移
         }
       },
@@ -225,6 +225,7 @@
         }
 
         &.zoom {
+          /*transform-origin: center 0; // 可以设置缩放点*/
           border-radius: 0.16rem;
           transform: scale(0.88);
           transition: all 0.5s ease;
