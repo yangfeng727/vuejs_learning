@@ -134,7 +134,7 @@ export default {
           //   //   }
           //   // })
           // })
-          return _self.axios.get('/api/jquery/test1.txt').then((response) => {
+          return _self.$httpGET('/api/jquery/test1.txt').then((response) => {
             console.log(response.data)
           })
         }

@@ -1,5 +1,9 @@
 <template>
   <div class="hello">
+    <div class="top">
+      横向滚动
+      <h-x-scroll :list="scrollList" @change="scChange"/>
+    </div>
     <h1>{{ msg }}</h1>
     <h1>vue 国际化配置：{{ msg2 }}</h1>
     <h2>Essential Links</h2>
@@ -13,15 +17,20 @@
 
 <script>
   import $ from 'jQuery'
+  import HXScroll from './HXScroll'
 
   export default {
     name: 'HelloWorld',
+    components: {
+      HXScroll
+    },
     data () {
       return {
         msg: 'Welcome to Your Vue.js App',
         msg2: this.$t('hello'),
         htmlBgColor: '',
-        obj: {}
+        obj: {},
+        scrollList: ['eeeee', '1111', '2222', '3333', '4444', 'eeeee', '1111', '2222', '3333', '4444', 'eeeee', '1111', '2222', '3333', '4444', 'eeeee', '1111', '2222', '3333', '4444']
       }
     },
     mounted () {
@@ -33,6 +42,9 @@
       $('body').css('background', this.htmlBgColor)
     },
     methods: {
+      scChange (item) {
+        console.log(item)
+      },
       addObj () {
         // this.obj.show = true
         if ('show' in this.obj) {
@@ -63,5 +75,14 @@
 
   a {
     color: #42b983;
+  }
+
+  .top {
+    position: relative;
+    background: #ffffff;
+    width: 80%;
+    margin: 0 auto;
+    text-align: left;
+    line-height: 50px;
   }
 </style>
