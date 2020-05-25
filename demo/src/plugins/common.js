@@ -244,5 +244,49 @@ commonPlugin.install = function (Vue, options) {
     }
     return mergObj
   }
+
+  // canvas下载图片
+  Vue.prototype.$saveImg = function () {
+    let canvas = document.querySelector('.qrcode canvas')
+    let url = canvas.toDataURL('image/png')
+    let oA = document.createElement('a')
+    oA.download = '二维码.png' // 设置下载的文件名，默认是'下载'
+    oA.href = url
+    document.body.appendChild(oA)
+    oA.click()
+    oA.remove() // 下载之后把创建的元素删除
+  }
+
+  /**
+   * js根据节点名称，查找某节点的特定父节点
+   * @className 父节点中含有当前class的节点
+   * */
+  Vue.prototype.$getParentNode = function (node, className) {
+    if (!node) return ''
+    if (node.nodeName == 'BODY') return node
+    let tnode = node.parentNode
+    let cName = tnode.getAttribute('class')
+    if (cName === className) return tnode
+    return this.getParentNode(tnode, className)
+  }
+  /**
+   * js根据节点名称，查找某节点的特定子节点
+   * @className 子节点中含有当前class的节点
+   * */
+  Vue.prototype.$getChildrenNode = function (node, className) {
+    if (!node) return ''
+    let tnode = node.children
+    if (!tnode || !tnode.length) return ''
+    for (let i = 0; i < tnode.length; i++) {
+      let item = tnode[i]
+      let cName = item.getAttribute('class')
+      if (cName === className) return item
+      let findNode = this.getChildrenNode(item, className)
+      if (findNode) {
+        return findNode
+      }
+    }
+    return ''
+  }
 }
 export default commonPlugin
