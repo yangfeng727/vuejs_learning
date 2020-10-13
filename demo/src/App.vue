@@ -11,6 +11,7 @@
       <router-link :to="{name:'renderIndex'}">vue Render函数使用案例</router-link>
       <router-link :to="{name:'draggableIndex'}">vuedraggable拖拽排序组件使用案例</router-link>
       <router-link :to="{name:'swiperIndex'}">vue 轮播图组件使用案例</router-link>
+      <router-link :to="{name:'h5Plugin'}">h5插件</router-link>
     </div>
     <div class="app-content">
       <router-view/>
