@@ -17,6 +17,19 @@
       <h1>多柱柱状图</h1>
       <bar-chart :chart-data='barChart.chartData' class="line-chart" id="line-chart2"/>
     </div>
+
+    <!--关系图-->
+    <div class="com-box" style="width:100%;">
+      <h1>高亮切换显示关系图</h1>
+      <ul class="text-title">
+        <li v-for="(item,index) in menuList" :key="index" :class="{'on':selected==index}"
+            @click="changeHignLightLabel(item)">{{item.label}}
+        </li>
+      </ul>
+      <div style="height: 500px;">
+        <charts-chain-graph class="line-chart" id="graph-charts" :hignLightLabel="hignLightLabel"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -24,13 +37,15 @@
   import Chart from './common/Chart'
   import BarChart from './common/BarChart'
   import XYLineChart from './common/XYLineChart'
+  import ChartsChainGraph from './common/ChartsChainGraph'
 
   export default {
     name: 'eharts',
     components: {
       Chart,
       BarChart,
-      XYLineChart
+      XYLineChart,
+      ChartsChainGraph
     },
     data () {
       return {
@@ -62,13 +77,39 @@
             xData: ['2015', '2016', '2017', '2018', '2019'], // 横轴值
             yData: [[20, 80, 99, 68, 105], [20, 80, 99, 68, 105], [20, 80, 99, 68, 105], [-60, 80, 99, 68, 105]] // 纵轴值
           }
-        }
+        },
+        // 关系图
+        selected: 0,
+        menuList: [
+          {
+            label: '全部',
+            node: ''
+          },
+          {
+            label: '易保全',
+            node: '易保全'
+          },
+          {
+            label: '仲裁委',
+            node: '仲裁委'
+          },
+          {
+            label: '公证处',
+            node: '公证处'
+          }
+        ],
+        hignLightLabel: ''
+      }
+    },
+    methods: {
+      changeHignLightLabel (item) {
+        this.hignLightLabel = item.node
       }
     }
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .wrap {
     background: #f8f8f8;
     overflow: hidden;
@@ -97,5 +138,27 @@
 
   .note {
     font-size: 18px;
+  }
+
+  .text-title {
+    list-style: none;
+    display: inline-block;
+    margin: 10px 0;
+    li {
+      list-style: none;
+      font-size: 14px;
+      text-align: center;
+      line-height: 50px;
+      width: 200px;
+      padding: 0 5px;
+      cursor: pointer;
+      display: inline-block;
+      margin-right: 10px;
+      color: #ffffff;
+      background: #46A4FF;
+      &:hover, &.on {
+        color: #ff6d6d;
+      }
+    }
   }
 </style>
