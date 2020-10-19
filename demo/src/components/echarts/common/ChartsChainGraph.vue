@@ -39,12 +39,12 @@
           return [
             {
               label: '保全链',
-              level: 1, // 1级节点
+              level: 1,
               color: ['#010D71', '#0B36FB'],
               children: [
                 {
                   label: '易保全',
-                  level: 2, // 2级节点
+                  level: 2,
                   color: ['#102EB5', '#3E61FF'],
                   children: [
                     {
@@ -59,8 +59,9 @@
                   color: ['#1C174A', '#00B0FD'],
                   children: [
                     {
-                      label: '汕尾仲裁委',
+                      label: '深汕仲裁委',
                       level: 3,
+                      labelOffset: [-25, -25],
                     },
                     {
                       label: '十堰仲裁委',
@@ -81,34 +82,45 @@
                     {
                       label: '盐城仲裁委',
                       level: 3,
+                      labelPosition: 'right', // 方向
+                      labelOffset: [-20, 25],
                     },
                     {
                       label: '安阳仲裁委',
                       level: 3,
+                      labelPosition: 'left', // 方向
+                      labelOffset: [20, 25],
                     },
                     {
                       label: '宁波仲裁委',
                       level: 3,
+                      labelPosition: 'left', // 方向
                     },
                     {
                       label: '中卫仲裁委',
                       level: 3,
+                      labelPosition: 'left', // 方向
                     },
                     {
                       label: '青岛仲裁委',
                       level: 3,
+                      labelPosition: 'left', // 方向
                     },
                     {
                       label: '哈尔滨仲裁委',
                       level: 3,
+                      labelPosition: 'left', // 方向
                     },
                     {
                       label: '庆阳仲裁委',
                       level: 3,
+                      labelPosition: 'left', // 方向
                     },
                     {
                       label: '台州仲裁委',
                       level: 3,
+                      labelPosition: 'left', // 方向
+                      labelOffset: [15, -25],
                     },
                   ],
                 },
@@ -120,14 +132,18 @@
                     {
                       label: '首都知识产权局',
                       level: 3,
+                      labelPosition: 'left', // 方向
                     },
                     {
                       label: '重庆市版权保护中心',
                       level: 3,
+                      labelPosition: 'left', // 方向
+                      labelOffset: [10, -20],
                     },
                     {
                       label: '贵州省版权局登记平台',
                       level: 3,
+                      labelOffset: [-10, -20],
                     },
                   ],
                 },
@@ -380,7 +396,8 @@
                   category: dataObj.categories.findIndex(sub => sub.name == currentLevelName),
                   label: {
                     color: color[1],
-                    position: 'right',
+                    position: item.labelPosition ? item.labelPosition : 'right', // left,top,bottom,right,三级节点可配置label方向
+                    offset: item.labelOffset ? item.labelOffset : [0, 0],
                   },
                   itemStyle: {
                     color: color[1],
@@ -417,7 +434,6 @@
       // 无数据时显坐标轴并显示无数据
       getOption() {
         let dataObj = this.packageData();
-        // console.log(dataObj, 666)
         this.dataObj = dataObj; // 存储数控
         let defaultOption = {
           backgroundColor: '#1C174A',
