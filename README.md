@@ -134,3 +134,25 @@ module.exports = {
 
 ## vue pc 端rem适配方案[参考地址](https://blog.csdn.net/MrzhangxianshengJS/article/details/84562547)
 利用px2rem-loader和lib-flexible实现PC端大屏项目的全自动开发,需要注意的是，由于lib-flexible不支持pc端，需要下载到本地，更改下源码，实现根据浏览器大小动态改变rem（相当于之前自己写的resize方法重新计算rem值）
+
+## vue elementui表单验证
+```
+// 验证模板名称
+this.$refs['contForm'].clearValidate();
+let validForm = true;
+let validFormListTab = this.$refs.contForm;
+validFormListTab.validate(() => {});
+try {
+
+  const fields = validFormListTab.fields;
+  if (fields) {
+    fields.forEach(element => {
+      if (element.prop !== '' && element.validateState === 'error') {
+        throw new Error('validFails');
+      }
+    });
+  }
+} catch (error) {
+  validForm = false;
+}
+```
