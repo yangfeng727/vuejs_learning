@@ -25,6 +25,10 @@ const SwiperIndex = resolve => require(['@/components/swiper/Index'], resolve)
 
 // h5 插件
 const h5Plugin = resolve => require(['@/components/h5/Index'], resolve)
+
+// canvas
+const canvas = resolve => require(['@/components/canvas/Index'], resolve)
+
 Vue.use(Router)
 
 export default new Router({
@@ -100,6 +104,11 @@ export default new Router({
       path: '/h5Plugin',
       name: 'h5Plugin',
       component: h5Plugin
+    },
+    {
+      path: '/canvas',
+      name: 'canvas',
+      component: canvas
     }
   ]
 })
