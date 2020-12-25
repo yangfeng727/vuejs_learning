@@ -44,6 +44,11 @@ commonPlugin.install = function (Vue, options) {
 
   Vue.prototype.$reCharts = reCharts
 
+  // 对象获取值
+  Vue.prototype.$getObjVal = function (obj, key) {
+    return obj && obj[key] ? obj[key] : ''
+  }
+
   /**
    * 获取图片的容错处理
    * @name 图片名称

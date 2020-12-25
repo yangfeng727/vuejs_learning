@@ -12,17 +12,27 @@
     </p>
     <p v-if="obj.show">显示。。。。。。。。。。。。。。。。</p>
     <p>文件下载显示案例：<span class="s-file" v-html="$downloadFile('https://fuss10.elemecdn.com/a_ddd.xls')"></span></p>
+
+    <h1>可编辑下拉框</h1>
+    <div>
+      <edit-select :options="selectMap" :show-empty="false" label="请选择"
+                   v-model="selectVal"
+                   @change="val => {changSelect(val)}">
+      </edit-select>
+    </div>
   </div>
 </template>
 
 <script>
   import $ from 'jQuery'
   import HXScroll from './HXScroll'
+  import EditSelect from './pcComponents/EditSelect'
 
   export default {
     name: 'HelloWorld',
     components: {
-      HXScroll
+      HXScroll,
+      EditSelect
     },
     data () {
       return {
@@ -30,7 +40,36 @@
         msg2: this.$t('hello'),
         htmlBgColor: '',
         obj: {},
-        scrollList: ['eeeee', '1111', '2222', '3333', '4444', 'eeeee', '1111', '2222', '3333', '4444', 'eeeee', '1111', '2222', '3333', '4444', 'eeeee', '1111', '2222', '3333', '4444']
+        scrollList: ['eeeee', '1111', '2222', '3333', '4444', 'eeeee', '1111', '2222', '3333', '4444', 'eeeee', '1111', '2222', '3333', '4444', 'eeeee', '1111', '2222', '3333', '4444'],
+        // selectMap:{
+        //   // 1:'222',
+        //   // 2:'44444'
+        //   1:{
+        //     val:1,
+        //     value:'12',
+        //     text:'张三1'
+        //   },
+        //   2:{
+        //     val:2,
+        //     value:'14',
+        //     text:'张三2'
+        //   },
+        //   3:{
+        //     val:3,
+        //     value:'12',
+        //     text:'张三3'
+        //   }
+        // },
+        selectMap:[
+          {value:12,text:'张三1',data:[1,'张三1',2]},
+          {value:13,text:'张三2',data:[1,'张三2',2]},
+          {value:14,text:'张三3',data:[1,'张三3',2]},
+        ],
+        //
+        // selectMap:[
+        //  1,2,3
+        // ],
+        selectVal:'dddddddd'
       }
     },
     mounted () {
@@ -52,6 +91,10 @@
         } else {
           this.$set(this.obj, 'show', true) // 对象用$set新增属性
         }
+      },
+      changSelect(val){
+        console.log(val, 777)
+        console.log('selectMap',this.selectMap, 6666)
       }
     }
   }
