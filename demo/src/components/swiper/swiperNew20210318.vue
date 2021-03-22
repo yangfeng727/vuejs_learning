@@ -1,4 +1,4 @@
-<!--轮播组件,根据父级别宽度渲染-->
+<!--轮播组件,根据父级别宽度渲染,需要父级设置overflow:hidden-->
 <!--author:yf-->
 <!--zoom（缩放）:两边小中间大的轮播展示效果,想要更改两边的距离,请配置options.bSidesWidth值-->
 <!--normal（普通轮播-->
@@ -235,9 +235,11 @@
 </script>
 <style lang="less" scoped>
   .swiper-component {
-    overflow: hidden;
+    /*overflow-x: hidden;*/
     height: 3rem;
     position: relative;
+    transform: scale(0.72);
+    box-sizing: border-box;
     ul {
       white-space: nowrap;
       height: 100%;
@@ -251,6 +253,7 @@
         /*float: left;*/
         overflow: hidden;
         flex: none;
+        /*border-radius: 0.16rem;*/
         > div {
           position: relative;
           color: #ffffff;
@@ -259,19 +262,22 @@
           height: 100%;
         }
         img {
-          width: 100%;
+          /*width: auto;*/
+          /*height: auto;*/
+          /*width: 100%;*/
+          width: auto;
           height: 100%;
         }
         &.zoom {
           /*transform-origin: center 0; // 可以设置缩放点*/
-          border-radius: 0.16rem;
-          transform: scale(0.88);
+          transform: scale(1);
           transition: all 0.5s ease;
           opacity: .65;
           &.active {
-            transform: scale(1);
+            transform: scale(1.4);
             opacity: 1;
-            box-shadow: 0 0 15px rgba(1, 123, 147, 0.9);
+            z-index: 88;
+            /*box-shadow: 0 0 15px rgba(1, 123, 147, 0.9);*/
           }
         }
       }
@@ -295,3 +301,4 @@
     }
   }
 </style>
+
