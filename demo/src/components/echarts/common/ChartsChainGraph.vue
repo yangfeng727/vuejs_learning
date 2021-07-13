@@ -7,9 +7,9 @@
   </div>
 </template>
 <script>
-  let echarts = require('echarts/lib/echarts'); // 引入基本模板
-  require('echarts/lib/chart/graph');
-  require('echarts/lib/component/tooltip');
+  // let echarts = require('echarts/lib/echarts'); // 引入基本模板
+  // require('echarts/lib/chart/graph');
+  // require('echarts/lib/component/tooltip');
   // require('echarts/lib/component/dataZoom');
   // require('echarts/lib/component/legend');
   // require('echarts/lib/component/title')
@@ -190,7 +190,7 @@
       },
     },
     mounted() {
-      this.myChart = echarts.init(document.getElementById(this.id));
+      this.myChart = this.$echarts.init(document.getElementById(this.id));
       this.showLoading(); // 数据获取显示之前先加载一段动画
       this.draw();
 
@@ -504,6 +504,7 @@
         if (this.hignLightLabel) {
           let findIndex = this.dataObj.data.findIndex(item => item.name === this.hignLightLabel);
           findIndex > -1 && this.myChart.dispatchAction({
+            // type: 'highlight',
             type: 'focusNodeAdjacency',
             // 使用 seriesId 或 seriesIndex 或 seriesName 来指定 series.
             // seriesId: 'xxx',

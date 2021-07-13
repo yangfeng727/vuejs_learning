@@ -6,11 +6,11 @@
   </div>
 </template>
 <script>
-  let echarts = require('echarts/lib/echarts') // 引入基本模板
-  require('echarts/lib/chart/line')
-  require('echarts/lib/component/tooltip')
-  require('echarts/lib/component/dataZoom')
-  require('echarts/lib/component/legend')
+  // let echarts = require('echarts/lib/echarts') // 引入基本模板
+  // require('echarts/lib/chart/line')
+  // require('echarts/lib/component/tooltip')
+  // require('echarts/lib/component/dataZoom')
+  // require('echarts/lib/component/legend')
   // require('echarts/lib/component/title')
 
   export default {
@@ -44,7 +44,7 @@
       }
     },
     mounted () {
-      this.myChart = echarts.init(document.getElementById(this.id))
+      this.myChart = this.$echarts.init(document.getElementById(this.id))
       this.showLoading() // 数据获取显示之前先加载一段动画
       this.drawLine()
     },

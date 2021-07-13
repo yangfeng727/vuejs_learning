@@ -1,5 +1,19 @@
 <template>
   <div class="wrap">
+    <h1 style="width: 100%;">echarts 换肤</h1>
+    <div style="width:100%;display: flex;justify-content: space-between;align-items: flex-start;">
+      <!--换皮肤前-->
+      <div class="com-box">
+        <h1>换肤前</h1>
+        <div class="line-chart" id="testTheme1"></div>
+      </div>
+      <!--换皮肤后-->
+      <div class="com-box">
+        <h1>换肤后</h1>
+        <div class="line-chart" id="testTheme2"></div>
+      </div>
+    </div>
+
     <!--双轴分割折线图-->
     <div class="com-box">
       <h1>双轴分割折线图<span class="note">(两根轴的量度单位不同)</span></h1>
@@ -30,6 +44,7 @@
         <charts-chain-graph class="line-chart" id="graph-charts" :hignLightLabel="hignLightLabel"/>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -104,7 +119,33 @@
     methods: {
       changeHignLightLabel (item) {
         this.hignLightLabel = item.node
+      },
+      getMyOption () {
+        return {
+          xAxis: {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [{
+            data: [120, 200, 150, 80, 70, 110, 130],
+            type: 'bar'
+          }, {
+            data: [120, 200, 150, 80, 70, 110, 130],
+            type: 'bar'
+          }, {
+            data: [120, 200, 150, 80, 70, 110, 130],
+            type: 'bar'
+          }]
+        }
       }
+    },
+    mounted () {
+      // 使用注册了主题的echarts全局变量
+      this.$echarts.init(document.getElementById('testTheme1')).setOption(this.getMyOption())
+      this.$echarts.init(document.getElementById('testTheme2'),'mytest-theme').setOption(this.getMyOption())
     }
   }
 </script>
