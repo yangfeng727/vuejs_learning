@@ -1,50 +1,57 @@
 <template>
-  <div class="wrap">
-    <h1 style="width: 100%;">echarts 换肤</h1>
-    <div style="width:100%;display: flex;justify-content: space-between;align-items: flex-start;">
-      <!--换皮肤前-->
+  <div>
+    <p style="text-align: left;padding: 20px 15%;font-size: 14px;">
+      echarts换肤说明：echarts官网本身支持主题，下载下来（可能需要改下js中的引入echarts部分，看你怎么引入了）<br/>
+    大概原理就是全局大概的配置样式，应该只是适合部分样式外观要求比较低的换肤<br/>
+    若图标本身设置有样式，则优先使用本身样式，而不是使用全局主题样式<br/>
+    </p>
+    <div class="wrap">
+      <h1 style="width: 100%;">echarts 换肤</h1>
+      <div style="width:100%;display: flex;justify-content: space-between;align-items: flex-start;">
+        <!--换皮肤前-->
+        <div class="com-box">
+          <h1>换肤前</h1>
+          <div class="line-chart" id="testTheme1"></div>
+        </div>
+        <!--换皮肤后-->
+        <div class="com-box">
+          <h1>换肤后</h1>
+          <div class="line-chart" id="testTheme2"></div>
+        </div>
+      </div>
+
+      <!--双轴分割折线图-->
       <div class="com-box">
-        <h1>换肤前</h1>
-        <div class="line-chart" id="testTheme1"></div>
+        <h1>双轴分割折线图<span class="note">(两根轴的量度单位不同)</span></h1>
+        <x-y-line-chart :chart-data='lineChart.chartData' :showTwoAxis="true" class="line-chart" id="line-chart"/>
       </div>
-      <!--换皮肤后-->
+
+      <!--横坐标带点的折线图-->
       <div class="com-box">
-        <h1>换肤后</h1>
-        <div class="line-chart" id="testTheme2"></div>
+        <h1>横坐标带点的折线图</h1>
+        <Chart :chart-data='chart.chartData' :option="chart.option" class="line-chart" id="line-chart1"/>
       </div>
-    </div>
 
-    <!--双轴分割折线图-->
-    <div class="com-box">
-      <h1>双轴分割折线图<span class="note">(两根轴的量度单位不同)</span></h1>
-      <x-y-line-chart :chart-data='lineChart.chartData' :showTwoAxis="true" class="line-chart" id="line-chart"/>
-    </div>
-
-    <!--横坐标带点的折线图-->
-    <div class="com-box">
-      <h1>横坐标带点的折线图</h1>
-      <Chart :chart-data='chart.chartData' :option="chart.option" class="line-chart" id="line-chart1"/>
-    </div>
-
-    <!--多柱柱状图-->
-    <div class="com-box">
-      <h1>多柱柱状图</h1>
-      <bar-chart :chart-data='barChart.chartData' class="line-chart" id="line-chart2"/>
-    </div>
-
-    <!--关系图-->
-    <div class="com-box" style="width:100%;">
-      <h1>高亮切换显示关系图</h1>
-      <ul class="text-title">
-        <li v-for="(item,index) in menuList" :key="index" :class="{'on':selected==index}"
-            @click="changeHignLightLabel(item)">{{item.label}}
-        </li>
-      </ul>
-      <div style="height: 500px;">
-        <charts-chain-graph class="line-chart" id="graph-charts" :hignLightLabel="hignLightLabel"/>
+      <!--多柱柱状图-->
+      <div class="com-box">
+        <h1>多柱柱状图</h1>
+        <bar-chart :chart-data='barChart.chartData' class="line-chart" id="line-chart2"/>
       </div>
-    </div>
 
+      <!--关系图-->
+      <div class="com-box" style="width:100%;">
+        <h1>高亮切换显示关系图</h1>
+        <ul class="text-title">
+          <li v-for="(item,index) in menuList" :key="index" :class="{'on':selected==index}"
+              @click="changeHignLightLabel(item)">{{item.label}}
+          </li>
+        </ul>
+        <div style="height: 500px;">
+          <charts-chain-graph class="line-chart" id="graph-charts" :hignLightLabel="hignLightLabel"/>
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -129,6 +136,12 @@
           yAxis: {
             type: 'value'
           },
+          tooltip:{
+            trigger:'axis',
+            axisPointer:{
+              type:'shadow'
+            }
+          },
           series: [{
             data: [120, 200, 150, 80, 70, 110, 130],
             type: 'bar'
@@ -136,6 +149,9 @@
             data: [120, 200, 150, 80, 70, 110, 130],
             type: 'bar'
           }, {
+            itemStyle:{
+              color:'#ff36f5'
+            },
             data: [120, 200, 150, 80, 70, 110, 130],
             type: 'bar'
           }]

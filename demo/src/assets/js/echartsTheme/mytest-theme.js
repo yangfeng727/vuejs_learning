@@ -26,8 +26,6 @@
   }
   echarts.registerTheme('mytest-theme', {
     'color': [
-      '#c1232b',
-      '#27727b',
       '#fcce10',
       '#e87c25',
       '#b5c334',
@@ -42,7 +40,7 @@
       '#f0805a',
       '#26c0c0'
     ],
-    'backgroundColor': 'rgba(139,181,123,0)',
+    "backgroundColor": "#ff7d2d",
     'textStyle': {},
     'title': {
       'textStyle': {
